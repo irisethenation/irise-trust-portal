@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Generator - iRise Academy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f7fafc;
+        }
+        
+        h1 {
+            color: #1a365d;
+            text-align: center;
+        }
+        
+        .info {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .canvas-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        
+        .canvas-wrapper {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        canvas {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            display: block;
+            margin: 10px auto;
+        }
+        
+        button {
+            background: #3182ce;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background: #2c5282;
+            transform: translateY(-2px);
+        }
+        
+        .note {
+            background: #fff5f5;
+            border-left: 4px solid #e53e3e;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+        
+        .note strong {
+            color: #e53e3e;
+        }
+    </style>
+</head>
+<body>
+    <h1>🏛️ iRise Academy Icon Generator</h1>
+    
+    <div class="info">
+        <h2>Instructions</h2>
+        <p>This page generates placeholder icons for the Trust Documentation Portal. These are temporary icons that should be replaced with actual iRise Academy branded icons before deployment.</p>
+        <p><strong>To generate icons:</strong></p>
+        <ol>
+            <li>Click the "Generate Icons" button below</li>
+            <li>Right-click each icon and select "Save image as..."</li>
+            <li>Save as "icon-192.png" and "icon-512.png" respectively</li>
+            <li>Place both files in the root directory of the portal</li>
+        </ol>
+    </div>
+    
+    <div style="text-align: center; margin: 30px 0;">
+        <button onclick="generateIcons()">Generate Icons</button>
+    </div>
+    
+    <div class="canvas-container">
+        <div class="canvas-wrapper">
+            <h3>192x192 Icon</h3>
+            <canvas id="icon-192" width="192" height="192"></canvas>
+            <button onclick="downloadIcon('icon-192', 'icon-192.png')">Download 192x192</button>
+        </div>
+        
+        <div class="canvas-wrapper">
+            <h3>512x512 Icon</h3>
+            <canvas id="icon-512" width="512" height="512"></canvas>
+            <button onclick="downloadIcon('icon-512', 'icon-512.png')">Download 512x512</button>
+        </div>
+    </div>
+    
+    <div class="note">
+        <strong>Important:</strong> These are placeholder icons only. For production deployment, replace these with professionally designed icons featuring the actual iRise Academy logo and branding. The icons should:
+        <ul>
+            <li>Use official iRise Academy colors</li>
+            <li>Include the academy logo or symbol</li>
+            <li>Have appropriate padding around the design</li>
+            <li>Be optimized for web (compressed PNG files)</li>
+            <li>Look good on both light and dark backgrounds</li>
+        </ul>
+    </div>
+    
+    <script>
+        function generateIcons() {
+            generateIcon('icon-192', 192);
+            generateIcon('icon-512', 512);
+        }
+        
+        function generateIcon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#1a365d');
+            gradient.addColorStop(1, '#3182ce');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+            
+            // Draw university/academy icon (simplified building)
+            const iconSize = size * 0.6;
+            const iconX = (size - iconSize) / 2;
+            const iconY = (size - iconSize) / 2;
+            
+            // Building structure
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            
+            // Main building
+            const buildingWidth = iconSize * 0.8;
+            const buildingHeight = iconSize * 0.6;
+            const buildingX = (size - buildingWidth) / 2;
+            const buildingY = size * 0.4;
+            
+            // Columns (3 columns)
+            const columnWidth = buildingWidth * 0.15;
+            const columnHeight = buildingHeight * 0.8;
+            const columnSpacing = (buildingWidth - columnWidth * 3) / 4;
+            
+            for (let i = 0; i < 3; i++) {
+                const x = buildingX + columnSpacing + (columnWidth + columnSpacing) * i;
+                const y = buildingY + buildingHeight * 0.2;
+                
+                // Column
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                ctx.fillRect(x, y, columnWidth, columnHeight);
+                
+                // Column capital
+                ctx.fillRect(x - columnWidth * 0.2, y - columnWidth * 0.3, columnWidth * 1.4, columnWidth * 0.3);
+            }
+            
+            // Pediment (triangular top)
+            ctx.beginPath();
+            ctx.moveTo(buildingX - buildingWidth * 0.1, buildingY + buildingHeight * 0.2);
+            ctx.lineTo(size / 2, buildingY - buildingHeight * 0.1);
+            ctx.lineTo(buildingX + buildingWidth + buildingWidth * 0.1, buildingY + buildingHeight * 0.2);
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.fill();
+            
+            // Base/Steps
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.fillRect(buildingX - buildingWidth * 0.05, buildingY + buildingHeight, buildingWidth * 1.1, buildingHeight * 0.15);
+            
+            // Text "iRise"
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.font = `bold ${size * 0.12}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('iRise', size / 2, size * 0.78);
+            
+            // Subtitle
+            ctx.font = `${size * 0.06}px Arial`;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.fillText('Academy', size / 2, size * 0.88);
+        }
+        
+        function downloadIcon(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Auto-generate on page load
+        window.addEventListener('load', generateIcons);
+    </script>
+</body>
+</html>
